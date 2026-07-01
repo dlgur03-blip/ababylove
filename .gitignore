@@ -1,0 +1,10 @@
+# ababylove 설치 시 생성되는 로컬 산출물
+.DS_Store
+*.bak
+.claude.bak.*
+.claude.removed.*
+
+# 내부 기획/보고 문서 — 공개 금지(민감 문자열·핸드오프용 로컬 보관)
+# 루트의 타임스탬프 문서만 제외 (claude/commands/기획안.md 스킬은 유지)
+/[0-9]*_기획안.md
+/[0-9]*_작업보고.md
