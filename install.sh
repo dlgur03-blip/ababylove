@@ -69,6 +69,34 @@ for t in HOT USER MEMORY; do
   fi
 done
 
+# 2-5) 권한 허용목록 병합 (프롬프트로 자주 멈추는 것 방지)
+if command -v python3 >/dev/null 2>&1 && [ -f "$SRC/claude/permissions.json" ]; then
+  ABABY_SETTINGS="$CLAUDE_DIR/settings.json" ABABY_PERMS="$SRC/claude/permissions.json" python3 - <<'PY' \
+    && ok "권한 허용목록 병합(자주 멈추지 않게)" || warn "권한 병합 실패 — 나중에 설정에서 허용목록을 추가하세요."
+import json, os
+sp = os.environ["ABABY_SETTINGS"]
+cur = {}
+if os.path.exists(sp):
+    try:
+        with open(sp, encoding="utf-8") as f:
+            cur = json.load(f)
+    except Exception:
+        cur = {}
+add = json.load(open(os.environ["ABABY_PERMS"], encoding="utf-8")).get("permissions", {})
+perm = cur.setdefault("permissions", {})
+for key in ("allow", "deny"):
+    existing = perm.setdefault(key, [])
+    for item in add.get(key, []):
+        if item not in existing:
+            existing.append(item)
+os.makedirs(os.path.dirname(sp), exist_ok=True)
+with open(sp, "w", encoding="utf-8") as f:
+    json.dump(cur, f, ensure_ascii=False, indent=2)
+PY
+else
+  warn "python3 없음 또는 permissions.json 없음 — 권한 병합 건너뜀"
+fi
+
 # ── 3) Polyrus 검증 도구 설치 + 연결 ─────────────────────────────────────────
 say ""
 say "3) 검증 도구(Polyrus) 설치 — '돌 먹이기' 방지"

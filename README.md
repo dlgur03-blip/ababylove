@@ -17,6 +17,8 @@
   - `/실행` — 세운 계획대로 하나씩, 검수하며 진행한다
   - `/작업보고` — 한 일을 기록으로 남긴다
 - **메모리 공책** — AI가 나를 기억하게 하는 빈 공책(HOT/USER).
+- **권한 설정** — 흔한 작업은 매번 "허용할까요?"를 안 묻게 허용목록을 넣어, **AI가 자주 멈추지 않게** 합니다.
+  (단, `rm -rf` 같은 위험한 명령은 안전망으로 계속 막습니다.)
 - **검증 도구 Polyrus** — AI가 "됐다"고 해도 실제로 됐는지 자동 검사(설치 + 연결까지).
 
 ## 설치 — 두 가지 방법
@@ -29,18 +31,30 @@ Claude Code(터미널)에 이렇게 한 줄만 붙여넣으세요:
 그러면 Claude Code가 이 README를 읽고 알아서 `install.sh`까지 실행합니다.
 
 ### 방법 B. 직접 명령어로
+
+**Mac / Linux**
 ```bash
 git clone https://github.com/dlgur03-blip/ababylove.git
 cd ababylove
 bash install.sh
 ```
 
+**Windows** (PowerShell)
+```powershell
+git clone https://github.com/dlgur03-blip/ababylove.git
+cd ababylove
+powershell -ExecutionPolicy Bypass -File install.ps1
+```
+
 설치가 끝나면 Claude Code를 켜고 `/기획안` 부터 써보세요.
+
+> Mac/Linux는 `install.sh`, Windows는 `install.ps1`. 되돌리기는 각각 `uninstall.sh` / `uninstall.ps1`.
+> 방법 A(Claude Code에게 시키기)는 OS를 알아서 판단합니다.
 
 ## 안전 — 되돌리기
 
 - 설치는 **항상 기존 설정을 먼저 백업**합니다(`~/.claude.bak.날짜`). 아무것도 잃지 않아요.
-- 언제든 되돌리기: `bash uninstall.sh` (Polyrus 떼어내고 백업으로 복원).
+- 언제든 되돌리기: `bash uninstall.sh` (Windows는 `powershell -ExecutionPolicy Bypass -File uninstall.ps1`). Polyrus 떼어내고 백업으로 복원.
 - 이미 잘 쓰게 됐다면 검증 도구만 떼도 됩니다: `polyrus unwrap claude`.
 
 ## 자주 묻는 것

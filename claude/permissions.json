@@ -1,0 +1,16 @@
+{
+  "_help": "초보자 권한 허용목록. install 스크립트가 이 permissions를 ~/.claude/settings.json에 '합집합 병합'합니다(기존 설정 보존). 프롬프트('허용할까요?')를 줄여 AI가 자주 멈추지 않게 합니다. deny는 안전망 — allow보다 우선합니다.",
+  "permissions": {
+    "allow": [
+      "Bash(*)",
+      "Read(*)",
+      "Write(*)",
+      "Edit(*)",
+      "WebFetch(*)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(rm -rf /)"
+    ]
+  }
+}
